@@ -20,7 +20,7 @@ use crate::lengths::logical_position_to_api;
 use crate::string::ToSharedString;
 use crate::styled_text::StyledText;
 use crate::window::WindowAdapterRc;
-use crate::{SharedString, SlintContext, date_time};
+use crate::{Coord, SharedString, SlintContext, date_time};
 use core::pin::Pin;
 #[cfg(not(feature = "std"))]
 use num_traits::float::Float;

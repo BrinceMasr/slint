@@ -51,6 +51,11 @@ impl StyledText {
         }
     }
 
+    /// The text without its markup, as selection offsets index it: the paragraphs joined by `'\n'`.
+    pub fn raw_text(&self) -> alloc::borrow::Cow<'_, str> {
+        get_raw_text(self)
+    }
+
     /// Parses markdown into styled text.
     pub fn from_markdown(markdown: &str) -> Result<Self, StyledTextFromMarkdownError> {
         let (paragraphs, errors) = i_slint_common::styled_text::parse_interpolated::<

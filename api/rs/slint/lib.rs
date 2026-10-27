@@ -238,6 +238,10 @@ pub use i_slint_core::model::{
     ModelTracker, ReverseModel, SortModel, VecModel,
 };
 pub use i_slint_core::styled_text::StyledText;
+/// The parts of [`StyledText`] an application builds with [`StyledText::from_paragraphs`].
+pub mod styled_text {
+    pub use i_slint_core::styled_text::{FormattedSpan, SpanStyle, StyledTextParagraph};
+}
 #[cfg(feature = "std")]
 pub use i_slint_core::styled_text::StyledTextFromMarkdownError;
 pub use i_slint_core::timers::{Timer, TimerMode};

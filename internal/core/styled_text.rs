@@ -1,6 +1,8 @@
 // Copyright © SixtyFPS GmbH <info@slint.dev>
 // SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0
 
+pub use i_slint_common::styled_text::{FormattedSpan, Style as SpanStyle, StyledTextParagraph};
+
 /// Styled text that has been parsed and separated into paragraphs
 ///
 /// Clones of a StyledText share the same underlying data, so cloning is cheap.
@@ -49,6 +51,12 @@ impl StyledText {
             paragraphs: [i_slint_common::styled_text::paragraph_from_plain_text(text.into())]
                 .into(),
         }
+    }
+
+    /// Styled text from paragraphs an application built itself (for example from its own markdown
+    /// parser, with colour spans it animates), without parsing markup.
+    pub fn from_paragraphs(paragraphs: impl IntoIterator<Item = StyledTextParagraph>) -> Self {
+        Self { paragraphs: paragraphs.into_iter().collect() }
     }
 
     /// The text without its markup, as selection offsets index it: the paragraphs joined by `'\n'`.

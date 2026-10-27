@@ -1314,7 +1314,7 @@ fn build(l: &mut Loader) {
         /// mouse selection finds it; -1 when the text has no layout to hit-test (for example the
         /// software renderer with a bitmap font). For a selection that spans several elements, made by
         /// the application with `set-selection-offsets`.
-        function byte-offset-at(x: length, y: length) -> int { BuiltinFunction.StyledTextByteOffsetAt }
+        @pure function byte-offset-at(x: length, y: length) -> int { BuiltinFunction.StyledTextByteOffsetAt }
     } }
 
     element! {

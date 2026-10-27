@@ -130,6 +130,9 @@ macro_rules! for_each_builtin_function {
             StyledTextHasSelection: pure fn styled_text_has_selection(styled_text: ItemArg<StyledTextItem> => ElementReference) -> bool {
                 styled_text.item.has_selection()
             }
+            StyledTextByteOffsetAt: pure fn styled_text_byte_offset_at(styled_text: ItemArg<StyledTextItem> => ElementReference, x: Coord, y: Coord) -> i32 {
+                with_window_adapter(&styled_text.rc, |w| styled_text.item.byte_offset_at(crate::lengths::LogicalPoint::new(x, y), w, &styled_text.rc))
+            }
             ItemFontMetrics: pure fn item_font_metrics(element: ItemRc => ElementReference) -> FontMetrics {
                 with_window_adapter(&element, |w| crate::items::text_item_font_metrics(w, &element))
             }

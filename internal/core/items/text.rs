@@ -599,6 +599,38 @@ impl StyledTextItem {
             .set_clipboard_text(&text[range], Clipboard::DefaultClipboard);
     }
 
+    /// The byte offset of the raw text at `position` (logical, in the item's coordinates), or -1 when
+    /// the renderer has no parley layout for it.
+    pub fn byte_offset_at(
+        self: Pin<&Self>,
+        position: LogicalPoint,
+        window_adapter: &Rc<dyn WindowAdapter>,
+        self_rc: &ItemRc,
+    ) -> i32 {
+        #[cfg(feature = "shared-parley")]
+        {
+            let renderer = window_adapter.renderer();
+            if renderer.text_has_parley_layout(self, self_rc) {
+                let scale_factor = crate::lengths::ScaleFactor::new(
+                    WindowInner::from_pub(window_adapter.window()).scale_factor(),
+                );
+                return crate::textlayout::sharedparley::byte_offset_under_cursor(
+                    scale_factor,
+                    self,
+                    self_rc,
+                    LogicalSize::from_lengths(self.width(), self.height()),
+                    position * scale_factor,
+                    window_adapter.window(),
+                    renderer.text_layout_cache(),
+                )
+                .map_or(-1, |offset| offset as i32);
+            }
+        }
+        #[cfg(not(feature = "shared-parley"))]
+        let _ = (position, window_adapter, self_rc);
+        -1
+    }
+
     /// Selects the text between two byte offsets, clamped to the raw text.
     pub fn set_selection_offsets(self: Pin<&Self>, anchor: i32, focus: i32) {
         let styled = self.text();

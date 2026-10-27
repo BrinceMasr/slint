@@ -103,6 +103,7 @@ fn builtin_function_is_const(
         | BuiltinFunction::WindowHide => false,
         BuiltinFunction::HasSelection
         | BuiltinFunction::StyledTextHasSelection
+        | BuiltinFunction::StyledTextByteOffsetAt
         | BuiltinFunction::ContextMenuIsOpen => false,
         BuiltinFunction::ItemFontMetrics => false, // depends also on Window's font properties
         BuiltinFunction::StringIsEmpty

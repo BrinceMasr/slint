@@ -150,6 +150,7 @@ fn builtin_function_cost(function: &BuiltinFunction) -> isize {
         | BuiltinFunction::WindowHide => isize::MAX,
         BuiltinFunction::HasSelection
         | BuiltinFunction::StyledTextHasSelection
+        | BuiltinFunction::StyledTextByteOffsetAt
         | BuiltinFunction::ContextMenuIsOpen => PROPERTY_ACCESS_COST,
         BuiltinFunction::ItemFontMetrics => PROPERTY_ACCESS_COST,
         BuiltinFunction::StringToFloat => 50,
